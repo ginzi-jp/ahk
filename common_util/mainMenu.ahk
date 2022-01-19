@@ -89,3 +89,45 @@ IfWinNotExist %titel%
 return  
 } 
 
+/**
+ * 無変換2click
+ */
+vk1C::
+    If (A_PriorHotKey == A_ThisHotKey && A_TimeSincePriorHotkey < 300)
+    {
+	if(WinExist("ahk_class #32768")){
+		return	;何かのメニュー表示中は出さない
+	}
+	;eclipse
+	IME_SET(0)
+	Menu,mainMenu,Add,Eclipse`t&e,eclipse_start
+	Menu,mainMenu,Add,A5M2`t&a,A5M2_start
+	Menu,mainMenu,Add,WindowMerge`t&w,WindowMerge_start
+	Menu,mainMenu,Add,キャンセル`t&Q,menuCancel
+	
+	Menu,mainMenu,Show
+}
+return
+
+
+eclipse_start:
+Launch_Param("ahk_class SWT_Window0", "C:\eclipse\eclipse\eclipse.exe","C:\eclipse\eclipse\")  
+	;WinMove,A, , 380, 0, 1520,1050
+return
+A5M2_start:
+Launch("ahk_class TfrmSqlEx","C:\\Downloads\a5m2_2.14.5_x64\A5M2.exe")
+	;WinMove,A, , 380, 0, 1520,1050
+return
+WindowMerge_start:
+Launch("WinMerge ahk_class WinMergeWindowClassW","C:\Program Files\WinMerge\WinMergeU.exe")
+	;WinMove,A, , 380, 0, 1520,1050
+return
+;you need to write issuer number
+;example: Global redmine := "#0001" 
+redmine_start:
+	StringTrimLeft, sRedmineNumber , redmine, 1
+	sRedmineUrl := """C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"" ""http://127.0.0.1/redmine/issues/" . sRedmineNumber . """"
+	Run, %sRedmineUrl%
+return
+menuCancel:
+return

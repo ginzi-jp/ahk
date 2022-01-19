@@ -90,7 +90,7 @@ return
 } 
 
 /**
- * 無変換2click
+ * 変換2click
  */
 vk1C::
     If (A_PriorHotKey == A_ThisHotKey && A_TimeSincePriorHotkey < 300)
